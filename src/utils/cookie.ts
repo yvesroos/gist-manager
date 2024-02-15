@@ -13,3 +13,14 @@ export const getCookie = (cookieName: string) => {
   }
   return "";
 };
+
+export const setCookie = (
+  cookieName: string,
+  cookieValue: string,
+  expirationInMS: number
+) => {
+  const d = new Date();
+  d.setTime(d.getTime() + expirationInMS * 1000);
+  let expires = "expires=" + d.toUTCString();
+  document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+};

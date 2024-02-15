@@ -3,7 +3,7 @@ import {
   RouteLocationNormalized,
   RouteRecordRaw,
   createRouter,
-  createWebHistory,
+  createWebHashHistory,
 } from "vue-router";
 import GistListPage from "../pages/GistListPage.vue";
 import GistDetailPage from "../pages/GistDetailPage.vue";
@@ -11,6 +11,7 @@ import GistEditPage from "../pages/GistEditPage.vue";
 import LoginPage from "../pages/LoginPage.vue";
 import { routeNames } from "../routeNames";
 import { getCookie } from "../utils/cookie";
+import LoginSuccessPage from "../pages/LoginSuccessPage.vue";
 
 const checkUserAuth = (
   _to: RouteLocationNormalized,
@@ -27,6 +28,11 @@ const routes: RouteRecordRaw[] = [
     path: "/login",
     name: routeNames.LOGIN,
     component: LoginPage,
+  },
+  {
+    path: "/success",
+    name: routeNames.LOGIN_SUCCESS,
+    component: LoginSuccessPage,
   },
   {
     path: "/",
@@ -49,7 +55,7 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
