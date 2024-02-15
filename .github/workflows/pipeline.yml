@@ -3,8 +3,11 @@ name: Run Unit Tests
 on: push
 
 jobs:
-  unit_test:
+  unit_test-deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
       - uses: actions/checkout@v3
 
@@ -13,5 +16,26 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
+      - name: Run tests
       - run: yarn install --frozen-lockfile
       - run: yarn test
+
+      - name: Build app
+      - run: yarn build
+      - env:
+        VITE_GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+        VITE_GITHUB_REDIRECT_URL: ${{ vars.REDIRECT_URL }}
+        VITE_GITHUB_AUTH_URL: ${{ vars.AUTH_URL }}
+        VITE_GITHUB_GISTS_API_URL: ${{ vars.GISTS_API_URL }}
+
+      - name: Deploy
+        uses: reggionick/s3-deploy@v4
+        with:
+          folder: dist
+          bucket: ${{ secrets.S3_BUCKET }}
+          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+          invalidation: /
+          delete-removed: true
+          no-cache: true
+          private: true
+          files-to-include: "{.*/**,**}"
