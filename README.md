@@ -2,6 +2,8 @@
 
 This is a simple gist manager, where you can log in on behalf of a user, check all gists, filter by a user and edit the gist (adding more files or updating the existing ones).
 
+#### [You can access the project live here](http://gistmanager.s3-website.eu-north-1.amazonaws.com/)
+
 ---
 
 ## Technologies
