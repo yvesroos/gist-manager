@@ -3,36 +3,25 @@ import "@testing-library/jest-dom";
 import Button from "./Button.vue";
 import { expect } from "vitest";
 
-test.skip("renders button with correct text", async () => {
+test("renders button with correct text", async () => {
   const text = "Click Me";
-  const { getByText } = render(Button, { props: { text } });
+  const click = () => null;
+  const { getByText } = render(Button, { props: { text, click } });
 
   expect(getByText(text)).toBeInTheDocument();
 });
 
-test.skip("renders button with primary variant class by default", async () => {
+test("renders button with primary variant class by default", async () => {
   const text = "Click Me";
   const click = () => null;
   const { getByText } = render(Button, { props: { text, click } });
 
   const button = getByText(text);
 
-  expect(button).toHaveClass("bg-slate-500", "hover:bg-green-900");
+  expect(button).toHaveClass("bg-blue-600", "hover:bg-blue-700");
 });
 
-test.skip("renders button with secondary variant class when variant is provided", async () => {
-  const text = "Click Me";
-  const click = () => null;
-  const { getByText } = render(Button, {
-    props: { text, variant: "secondary", click },
-  });
-
-  const button = getByText(text);
-
-  expect(button).toHaveClass("bg-slate-300", "hover:bg-amber-900");
-});
-
-test.skip("calls provided click function when button is clicked", async () => {
+test("calls provided click function when button is clicked", async () => {
   const text = "Click Me";
   const clickMock = vi.fn();
   const { getByText } = render(Button, {
