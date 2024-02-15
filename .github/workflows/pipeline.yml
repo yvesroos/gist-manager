@@ -22,11 +22,11 @@ jobs:
 
       - name: Build app
       - run: yarn build
-      - env:
-        VITE_GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        VITE_GITHUB_REDIRECT_URL: ${{ vars.REDIRECT_URL }}
-        VITE_GITHUB_AUTH_URL: ${{ vars.AUTH_URL }}
-        VITE_GITHUB_GISTS_API_URL: ${{ vars.GISTS_API_URL }}
+        env:
+          VITE_GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          VITE_GITHUB_REDIRECT_URL: ${{ vars.REDIRECT_URL }}
+          VITE_GITHUB_AUTH_URL: ${{ vars.AUTH_URL }}
+          VITE_GITHUB_GISTS_API_URL: ${{ vars.GISTS_API_URL }}
 
       - name: Deploy
         uses: reggionick/s3-deploy@v4
