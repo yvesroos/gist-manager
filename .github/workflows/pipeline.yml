@@ -11,17 +11,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup node
+      - name: "Setup node"
         uses: actions/setup-node@v3
         with:
           node-version-file: ".nvmrc"
 
       - name: Run tests
-      - run: yarn install --frozen-lockfile
-      - run: yarn test
+        run: |
+          yarn install --frozen-lockfile
+          yarn test
 
       - name: Build app
-      - run: yarn build
+        run: yarn build
         env:
           VITE_GITHUB_CLIENT_ID: ${{ secrets.CLIENT_ID }}
           VITE_GITHUB_REDIRECT_URL: ${{ vars.REDIRECT_URL }}
@@ -29,7 +30,7 @@ jobs:
           VITE_GITHUB_GISTS_API_URL: ${{ vars.GISTS_API_URL }}
 
       - name: Deploy
-      - uses: reggionick/s3-deploy@v4
+        uses: reggionick/s3-deploy@v4
         with:
           folder: dist
           bucket: ${{ secrets.S3_BUCKET }}
