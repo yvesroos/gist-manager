@@ -34,7 +34,7 @@ jobs:
         with:
           folder: dist
           bucket: ${{ secrets.S3_BUCKET }}
-          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+          bucket-region: eu-north-1
           invalidation: /
           delete-removed: true
           no-cache: true
